@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<h2>Checkout</h2>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+        <li>{{ item.product.name }} x {{ item.quantity }} = ${{ "%.2f"|format(item.subtotal) }}</li>
+        {% endfor %}
+    </ul>
+    <p><strong>Total: ${{ "%.2f"|format(total) }}</strong></p>
+
+    <form method="post">
+        <p><input name="name" placeholder="Your Name" required></p>
+        <p><input name="email" placeholder="Your Email" type="email" required></p>
+        <p><textarea name="address" placeholder="Shipping Address" rows="3" required></textarea></p>
+        <p><button type="submit">Place Order</button></p>
+    </form>
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+<a href="{{ url_for('cart') }}">← Back to Cart</a>
+{% endblock %}
